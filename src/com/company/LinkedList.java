@@ -113,6 +113,13 @@ public class LinkedList<E> implements List<E> {
         return result;
     }
 
+
+    /**
+     * For my own reference:
+     * @param args
+     */
+
+    /*
     // Calls all of the above functions
     public static void main(String[] args) {
         LinkedList<String> list = new LinkedList<String>();
@@ -157,4 +164,6 @@ public class LinkedList<E> implements List<E> {
         System.out.print(list.get(list.size-1) + " --> NULL" + '\n');
 
     }
+
+     */
 }

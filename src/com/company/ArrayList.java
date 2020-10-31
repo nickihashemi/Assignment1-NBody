@@ -80,6 +80,13 @@ public class ArrayList<E> implements List<E> {
                 '}';
     }
 
+
+    /**
+     * For my own reference:
+     * @param args
+     */
+    /*
+
     public static void main(String[] args) {
         ArrayList<String> list = new ArrayList<>();
         list.add("Hopper");
@@ -123,5 +130,7 @@ public class ArrayList<E> implements List<E> {
         System.out.print(list.get(list.size-1) + " --> NULL" + '\n');
 
     }
+
+     */
 
 }
