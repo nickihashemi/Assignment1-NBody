@@ -6,20 +6,18 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.Arrays;
 
-
-
-//TODO:
-// Read the file in a method (throws exception in that method instead of main) - done
-// draw (done)
-// check if it draws with add method (done)
-// animation (done)
-// gravity
-// From scratch: LinkedList, ArrayList (code for LinkedList is lab 5, array list is in lecture) (done)
-
+/**
+ * Generates a moving Celestial Body model
+ * @param <E>
+ */
 public class NBody<E> extends JPanel implements ActionListener {
 
     List<CelestialBody> planets = null;
 
+    /**
+     * Reads the text file, determines if it's a LinkedList or Array List
+     * @throws IOException
+     */
     public void readingLines() throws IOException {
         File textFile = new File("/Users/nickihashemi/IdeaProjects/NBody/src/com/company/NBody.txt");
         BufferedReader fileScanner = new BufferedReader(new FileReader(textFile));
@@ -43,9 +41,12 @@ public class NBody<E> extends JPanel implements ActionListener {
 
     }
 
-
+    /**
+     * Paints the planets on the JPanel
+     * @param g
+     */
     public void paintComponent(Graphics g) {
-        Timer timer = new Timer(800, this);
+        Timer timer = new Timer(900, this);
         super.paintComponent(g);        // type super because we're getting it from the JPanel
 
         for (int i=0; i<planets.size(); i++) {
@@ -68,7 +69,10 @@ public class NBody<E> extends JPanel implements ActionListener {
         timer.start();
     }
 
-
+    /**
+     * Animates the planets with gravitational force
+     * @param e
+     */
     public void actionPerformed(ActionEvent e) {
         int xCoord, yCoord;     // cb
         int xCoord1, yCoord1;   // cb1
@@ -116,6 +120,8 @@ public class NBody<E> extends JPanel implements ActionListener {
                     cb.setxCoord((int) (xCoord1 - xVelocity1));
                     cb.setyCoord((int) (yCoord1 - yVelocity1));
                 }
+
+                repaint();
             }
 
             xCoord = cb.getxCoord();
@@ -137,6 +143,11 @@ public class NBody<E> extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Calls the above methods
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
         // JFrame
