@@ -45,7 +45,7 @@ public class NBody<E> extends JPanel implements ActionListener {
 
 
     public void paintComponent(Graphics g) {
-        Timer timer = new Timer(300, this);
+        Timer timer = new Timer(800, this);
         super.paintComponent(g);        // type super because we're getting it from the JPanel
 
         for (int i=0; i<planets.size(); i++) {
@@ -70,11 +70,54 @@ public class NBody<E> extends JPanel implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
-        int xCoord, yCoord;
-        double xVelocity, yVelocity;
+        int xCoord, yCoord;     // cb
+        int xCoord1, yCoord1;   // cb1
+        double xVelocity, yVelocity;    // cb
+        double xVelocity1, yVelocity1;  // cb1
+        double mass1;
+        double mass2;
+        double gravity = 6.674 * Math.pow(10, -11);
+        double distance;
+        double force;
 
         for (int i=0; i<planets.size(); i++) {
             CelestialBody cb = planets.get(i);
+            mass1 = cb.getMass();
+
+            int j=0;
+            CelestialBody cb1 = planets.get(j);
+            for (j=1; j<planets.size() && i != j; j++) {
+                cb1 = planets.get(j);
+                mass2 = cb1.getMass();
+                distance = Math.sqrt(Math.pow((cb1.getyCoord() - cb.getyCoord()), 2) + Math.pow((cb1.getxCoord() - cb.getxCoord()), 2));
+                force = gravity*(mass1*mass2)/distance;
+
+                if (cb.getxCoord() > cb1.getxCoord()) {        //whether the other x is < > to cb
+                    cb.setxVelocity(cb.getxVelocity() + force);
+                } else if (cb.getxCoord() < cb1.getxCoord()) {
+                    cb.setxVelocity(cb.getxVelocity() - force);
+                }
+
+                if (cb.getyCoord() > cb1.getyCoord()) {
+                    cb.setyVelocity(cb.getyVelocity() + force);
+                } else if (cb.getyCoord() < cb1.getyCoord()) {
+                    cb.setyVelocity(cb.getyVelocity() - force);
+                }
+
+                xCoord1 = cb1.getxCoord();
+                xVelocity1 = cb1.getxVelocity();
+                cb1.setxCoord((int) (xCoord1 + xVelocity1));
+
+                yCoord1 = cb1.getyCoord();
+                yVelocity1 = cb1.getyVelocity();
+                cb.setyCoord((int) (yCoord1 + yVelocity1));
+
+                if (xCoord1 < 0 || xCoord1 > 740) {
+                    cb.setxCoord((int) (xCoord1 - xVelocity1));
+                    cb.setyCoord((int) (yCoord1 - yVelocity1));
+                }
+            }
+
             xCoord = cb.getxCoord();
             xVelocity = cb.getxVelocity();
             cb.setxCoord((int) (xCoord + xVelocity));
