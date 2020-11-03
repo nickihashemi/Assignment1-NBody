@@ -84,14 +84,12 @@ public class NBody<E> extends JPanel implements ActionListener {
         double distance;
         double force;
 
-        for (int i=0; i<planets.size(); i++) {
+        for (int i=1; i<planets.size(); i++) {
             CelestialBody cb = planets.get(i);
             mass1 = cb.getMass();
 
-            int j=0;
-            CelestialBody cb1 = planets.get(j);
-            for (j=1; j<planets.size() && i != j; j++) {
-                cb1 = planets.get(j);
+            for (int j=1; j<planets.size() && i != j; j++) {
+                CelestialBody cb1 = planets.get(j);
                 mass2 = cb1.getMass();
                 distance = Math.sqrt(Math.pow((cb1.getyCoord() - cb.getyCoord()), 2) + Math.pow((cb1.getxCoord() - cb.getxCoord()), 2));
                 force = gravity*(mass1*mass2)/distance;
@@ -116,12 +114,6 @@ public class NBody<E> extends JPanel implements ActionListener {
                 yVelocity1 = cb1.getyVelocity();
                 cb.setyCoord((int) (yCoord1 + yVelocity1));
 
-                if (xCoord1 < 0 || xCoord1 > 740) {
-                    cb.setxCoord((int) (xCoord1 - xVelocity1));
-                    cb.setyCoord((int) (yCoord1 - yVelocity1));
-                }
-
-                repaint();
             }
 
             xCoord = cb.getxCoord();
@@ -131,12 +123,6 @@ public class NBody<E> extends JPanel implements ActionListener {
             yCoord = cb.getyCoord();
             yVelocity = cb.getyVelocity();
             cb.setyCoord((int) (yCoord + yVelocity));
-
-
-            if (xCoord < 0 || xCoord > 740) {
-                cb.setxCoord((int) (xCoord - xVelocity));
-                cb.setyCoord((int) (yCoord - yVelocity));
-            }
 
             repaint();
 
