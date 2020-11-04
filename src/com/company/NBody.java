@@ -46,7 +46,7 @@ public class NBody<E> extends JPanel implements ActionListener {
      * @param g
      */
     public void paintComponent(Graphics g) {
-        Timer timer = new Timer(900, this);
+        Timer timer = new Timer(1100, this);
         super.paintComponent(g);        // type super because we're getting it from the JPanel
 
         for (int i=0; i<planets.size(); i++) {
@@ -84,7 +84,7 @@ public class NBody<E> extends JPanel implements ActionListener {
         double distance;
         double force;
 
-        for (int i=1; i<planets.size(); i++) {
+        for (int i=0; i<planets.size(); i++) {
             CelestialBody cb = planets.get(i);
             mass1 = cb.getMass();
 
@@ -92,18 +92,18 @@ public class NBody<E> extends JPanel implements ActionListener {
                 CelestialBody cb1 = planets.get(j);
                 mass2 = cb1.getMass();
                 distance = Math.sqrt(Math.pow((cb1.getyCoord() - cb.getyCoord()), 2) + Math.pow((cb1.getxCoord() - cb.getxCoord()), 2));
-                force = gravity*(mass1*mass2)/distance;
+                force = (gravity*(mass1*mass2))/Math.pow(distance, 2);
 
                 if (cb.getxCoord() > cb1.getxCoord()) {        //whether the other x is < > to cb
-                    cb.setxVelocity(cb.getxVelocity() + force);
+                    cb1.setxVelocity(cb1.getxVelocity() + (force/mass1));
                 } else if (cb.getxCoord() < cb1.getxCoord()) {
-                    cb.setxVelocity(cb.getxVelocity() - force);
+                    cb1.setxVelocity(cb1.getxVelocity() - (force/mass1));
                 }
 
                 if (cb.getyCoord() > cb1.getyCoord()) {
-                    cb.setyVelocity(cb.getyVelocity() + force);
+                    cb1.setyVelocity(cb1.getyVelocity() + (force/mass1));
                 } else if (cb.getyCoord() < cb1.getyCoord()) {
-                    cb.setyVelocity(cb.getyVelocity() - force);
+                    cb1.setyVelocity(cb1.getyVelocity() - (force/mass1));
                 }
 
                 xCoord1 = cb1.getxCoord();
@@ -112,17 +112,9 @@ public class NBody<E> extends JPanel implements ActionListener {
 
                 yCoord1 = cb1.getyCoord();
                 yVelocity1 = cb1.getyVelocity();
-                cb.setyCoord((int) (yCoord1 + yVelocity1));
+                cb1.setyCoord((int) (yCoord1 + yVelocity1));
 
             }
-
-            xCoord = cb.getxCoord();
-            xVelocity = cb.getxVelocity();
-            cb.setxCoord((int) (xCoord + xVelocity));
-
-            yCoord = cb.getyCoord();
-            yVelocity = cb.getyVelocity();
-            cb.setyCoord((int) (yCoord + yVelocity));
 
             repaint();
 
