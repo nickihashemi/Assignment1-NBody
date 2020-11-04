@@ -71,6 +71,7 @@ public class NBody<E> extends JPanel implements ActionListener {
 
     /**
      * Animates the planets with gravitational force
+     * Compares 2 Celestial Body objects and sets a planet's gravity depending on the other
      * @param e
      */
     public void actionPerformed(ActionEvent e) {
