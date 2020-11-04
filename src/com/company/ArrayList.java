@@ -2,10 +2,15 @@ package com.company;
 
 import java.util.Arrays;
 
+/**
+ * Creates the ArrayList from Scratch
+ * @param <E>
+ */
 public class ArrayList<E> implements List<E> {
     int size;
     E[] arr;
 
+    // Constructor
     public ArrayList() {
         this.size = 0;
         this.arr = (E[]) new Object[10];
@@ -16,6 +21,7 @@ public class ArrayList<E> implements List<E> {
         return this.size;
     }
 
+    // Grows the array
     private void grow_array () {
         E [] new_arr = (E[]) new Object[arr.length * 2];
         for (int i = 0; i < arr.length; i++)
@@ -23,6 +29,8 @@ public class ArrayList<E> implements List<E> {
         arr = new_arr;
     }
 
+
+    // Adds a value at the end of the List
     @Override
     public boolean add(E item) {
         if (size == arr.length)
@@ -31,6 +39,8 @@ public class ArrayList<E> implements List<E> {
         return true;
     }
 
+
+    // Add a value at an index
     @Override
     public void add(int pos, E item) {
         for (int i = size; i > pos; i--)
@@ -39,6 +49,8 @@ public class ArrayList<E> implements List<E> {
         ++size;
     }
 
+
+    // Gets at an index
     @Override
     public E get(int pos) {
         try {
@@ -52,6 +64,8 @@ public class ArrayList<E> implements List<E> {
         return arr[pos];
     }
 
+
+    // Removes at an index
     @Override
     public E remove(int pos) {
         try {

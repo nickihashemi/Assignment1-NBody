@@ -1,6 +1,9 @@
 package com.company;
 
-
+/**
+ * Creates the LinkedList from scratch
+ * @param <E>
+ */
 public class LinkedList<E> implements List<E> {
 
     Node<E> head;
